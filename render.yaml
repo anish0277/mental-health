@@ -2,9 +2,11 @@ services:
   - type: web
     name: mental-health-flask
     env: python
+    runtime: python
     buildCommand: |
+      echo "Python version check:"
       python --version
-      pip install --upgrade pip
-      pip install --only-binary=all --no-cache-dir -r requirements.txt
-    startCommand: gunicorn app:app --host 0.0.0.0 --port $PORT
+      python -m pip install --upgrade pip setuptools wheel
+      python -m pip install --only-binary=all --no-cache-dir -r requirements.txt
+    startCommand: gunicorn app:app
     plan: free
