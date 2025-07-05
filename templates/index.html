@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mental Health Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #e8f0fe;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form select,
+        form input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        form input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        h3 {
+            margin-top: 20px;
+            text-align: center;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Mental Health Predictor</h2>
+        <form action="/predict" method="POST">
+            {% for feature in features %}
+            <label for="{{ feature }}">{{ feature.replace('_', ' ') }}</label>
+            <select name="{{ feature }}" required>
+                {% for option in options[feature] %}
+                    <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+            {% endfor %}
+            <input type="submit" value="Predict Mental Health Status">
+        </form>
+
+        {% if prediction_text %}
+            <h3>{{ prediction_text }}</h3>
+        {% endif %}
+    </div>
+</body>
+</html>
